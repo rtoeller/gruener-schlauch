@@ -39,7 +39,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<?php foreach ( $attributes as $attribute ) : ?>
 		<tr>
-			<th><?php echo wc_attribute_label( $attribute->get_name() ); ?></th>
+			<th><?php echo wc_attribute_label( $attribute->get_name() ); $name123 = wc_attribute_label( $attribute->get_name() ); ?></th>
 			<td><?php
 				$values = array();
 
@@ -59,12 +59,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 				} else {
 					$values = $attribute->get_options();
 
+					$i = 0;
 					foreach ( $values as &$value ) {
-						$value = make_clickable( esc_html( $value ) );
+						$i++;
+						$art = '';
+						if($name123 == 'Artikelnummer'){
+							$art = ' artikelnummer';
+						}
+						$value = '<span class="werte wert'.$i.$art.'">'.make_clickable( esc_html( $value ) ).'</span>';
 					}
 				}
 
-				echo apply_filters( 'woocommerce_attribute', wpautop( wptexturize( implode( ', ', $values ) ) ), $attribute, $values );
+				echo apply_filters( 'woocommerce_attribute', wpautop( wptexturize( implode( '', $values ) ) ), $attribute, $values );
 			?></td>
 		</tr>
 	<?php endforeach; ?>
